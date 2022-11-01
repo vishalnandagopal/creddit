@@ -22,8 +22,8 @@ def handle_user_choice_after_a_post(printed_posts:dict, subreddit:str,start_coun
     if user_choice:
         # Wants to read comments of a post
         print(f'{colors_to_use_in_terminal[(user_choice-1)%num_of_colors]}{printed_posts[user_choice-start_count-1][1]}{Fore.RESET}')
-        post_comments_dict = reddit.get_comments_dict(printed_posts[user_choice-start_count-1][0])
-        print_post_comments(post_comments_dict)
+        print_post_comments(printed_posts[user_choice-start_count-1][0])
+        handle_user_choice_after_a_post(printed_posts,subreddit,start_count)
     else:
         # Wants to read more posts from a subreddit
         last_post_id = printed_posts[-1][0]
@@ -56,9 +56,9 @@ def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count
     handle_user_choice_after_a_post(printed_posts,subreddit,start_count)
 
 
-def print_post_comments(post_comments_dict: dict):
+def print_post_comments(post_id: str):
     # printed_posts is supposed to be of the format ["post_id"], where printed_posts[i-1] is the id of the i'th post printed in the terminal
-    
+    post_comments_dict = reddit.get_comments_dict(post_id)
     count = 0
     for entry in post_comments_dict:
         if count < 10:
@@ -71,4 +71,4 @@ def print_post_comments(post_comments_dict: dict):
                 count += 1
         else:
             break
-    print(Fore.RESET,end='')
+    print(Fore.RESET,end="\n--------------------------------------------------------------------------------------------------------------------\n")

@@ -1,5 +1,5 @@
 from colorama import Fore
-import src.reddit as reddit
+from . import reddit
 import textwrap
 
 colors_to_use_in_terminal = [Fore.RED, Fore.GREEN, Fore.YELLOW, Fore.WHITE] # Fore.BLUE, Fore.MAGENTA, Fore.CYAN gives green, or purple so repetition
@@ -33,10 +33,21 @@ def handle_user_choice_after_a_post(printed_posts:dict, subreddit:str,start_coun
         start_count = print_subreddit_posts(subreddit,post_id_to_start_from=last_post_id,start_count=start_count)
 
 
-def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count=0) -> int:
+def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count=0):
+    """
+    Prints the subreddit posts when you give a subreddit name
     
-    # subrredit_dict_data is the dict subreddit_dict["data"]
-    # subreddit_dict_data["children"] is a list
+    subrredit_dict_data is the dict subreddit_dict["data"]
+    subreddit_dict_data["children"] is a list
+
+    #### Parameters
+    subreddit = subreddit name
+
+    post_id_to_start_from = used to connstruct the API url to ensure only the posts needed after a particular post ID are loaded 
+    from the server.
+    
+    start_count = post number to start from in the api_response. 
+    """
     subreddit_dict = reddit.get_subreddit_dict(subreddit,post_id_to_start_from=post_id_to_start_from)
     
     printed_posts = []
@@ -61,7 +72,14 @@ def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count
 
 
 def print_post_comments(post_id: str):
-    # printed_posts is supposed to be of the format ["post_id"], where printed_posts[i-1] is the id of the i'th post printed in the terminal
+    """
+    Prints the subreddit posts when you give a subreddit name
+    
+    printed_posts is supposed to be of the format ["post_id"], where printed_posts[i-1] is the id of the i'th post printed in the terminal
+    
+    #### Parameters
+    post_id = ID of the post for which we have to load comments
+    """
     post_comments_dict = reddit.get_comments_dict(post_id)
     count = 0
     for entry in post_comments_dict:

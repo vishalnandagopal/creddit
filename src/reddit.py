@@ -3,6 +3,12 @@ import requests
 def get_api_response(url) -> requests.Response:
     """
     Returns the json-encoded content of the api response, by requesting the given URL using the built-in requests library.
+
+    #### Parameters
+    url = URL to load using requests libraryy
+
+    #### Return value
+    Object of type requests.Response
     """
     headers = {
         "User-Agent": "unofficial-reddit-terminal-app"
@@ -20,12 +26,15 @@ def get_subreddit_dict(subreddit:str = "soccer", limit:int = 9, post_id_to_start
     """
     Constructs the api_url to load the subreddit, and loads the api_response and returns it as a dict.
 
-    ### Parameters:
+    #### Parameters:
     limit = number of posts that should be present in the json response.
 
     post_id_to_start_from = The posts that are after this id in the feed are loaded.
 
     For example if you give the ID of the 9th post (eg: yjbttz) and limit=10, the posts 10,11,12 and so on till 19 are loaded.
+
+    #### Return value
+    Dict of subreddit response with index: post_details.
     """
     
     if post_id_to_start_from:

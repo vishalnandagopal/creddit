@@ -5,6 +5,7 @@ import textwrap
 colors_to_use_in_terminal = [Fore.RED, Fore.GREEN, Fore.YELLOW, Fore.WHITE] # Fore.BLUE, Fore.MAGENTA, Fore.CYAN gives green, or purple so repetition
 num_of_colors = len(colors_to_use_in_terminal)
 
+
 def take_input_after_sub_print(text:str="") -> int:
     try:
         user_choice = input(text)
@@ -13,9 +14,11 @@ def take_input_after_sub_print(text:str="") -> int:
         print("\nExited the program")
         exit_terminal()
 
+
 def exit_terminal():
     import sys
     sys.exit()
+
 
 def handle_user_choice_after_a_post(printed_posts:dict, subreddit:str,start_count:int = 0):
     user_choice = take_input_after_sub_print("Enter the post you want to read the comments for, or click enter to read more posts: ")
@@ -28,6 +31,7 @@ def handle_user_choice_after_a_post(printed_posts:dict, subreddit:str,start_coun
         # Wants to read more posts from a subreddit
         last_post_id = printed_posts[-1][0]
         start_count = print_subreddit_posts(subreddit,post_id_to_start_from=last_post_id,start_count=start_count)
+
 
 def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count=0) -> int:
     

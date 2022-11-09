@@ -16,7 +16,7 @@ def get_api_response(url) -> requests.Response:
         import sys
         sys.exit()
 
-def get_subreddit_dict(subreddit:str = "soccer", limit:int = 10, post_id_to_start_from:str ="") -> dict:
+def get_subreddit_dict(subreddit:str = "soccer", limit:int = 9, post_id_to_start_from:str ="") -> dict:
     """
     Constructs the api_url to load the subreddit, and loads the api_response and returns it as a dict.
 

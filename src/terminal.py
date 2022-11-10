@@ -1,5 +1,6 @@
-from colorama import Fore
 from . import reddit
+from colorama import Fore
+from html import unescape
 import textwrap
 
 colors_to_use_in_terminal = [Fore.RED, Fore.GREEN, Fore.YELLOW, Fore.WHITE] # Fore.BLUE, Fore.MAGENTA, Fore.CYAN gives green, or purple so repetition
@@ -55,7 +56,7 @@ def print_subreddit_posts(subreddit:str,post_id_to_start_from:str="",start_count
     
     for entry in subreddit_dict:
         if (entry["data"]["author"] != "AutoModerator") and (entry["data"]["author"] != "2soccer2bot"):
-            print(colors_to_use_in_terminal[start_count%num_of_colors] + f'{start_count+1}. {entry["data"]["title"]}')
+            print(colors_to_use_in_terminal[start_count%num_of_colors] + f'{start_count+1}. {unescape(entry["data"]["title"])}')
             try:
                 if entry["data"]["link_flair_richtext"][1]['t'].lower() == "official source":
                     url_source = f'    URL - {entry["data"]["url"]}\n    Official Source'

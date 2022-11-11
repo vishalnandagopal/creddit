@@ -16,4 +16,4 @@ class GlobalVariables:
         else:
             self.ignored_users = []
             self.posts_to_print = 10
-            self.default_subreddit = "soccer"
+            self.default_subreddit = ""

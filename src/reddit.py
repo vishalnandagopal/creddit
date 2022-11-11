@@ -22,6 +22,7 @@ def get_api_response(url) -> requests.Response:
         import sys
         sys.exit()
 
+
 def get_subreddit_dict(subreddit:str = "soccer", limit:int = 9, post_id_to_start_from:str ="") -> dict:
     """
     Constructs the api_url to load the subreddit, and loads the api_response and returns it as a dict.
@@ -45,14 +46,13 @@ def get_subreddit_dict(subreddit:str = "soccer", limit:int = 9, post_id_to_start
     subreddit_response = get_api_response(subreddit_url)
     return subreddit_response["data"]["children"]
 
+
 def get_comments_dict(post_id:str) -> dict:
     """
     Constructs the api_url to load the comments of a post, and loads the api_response and returns it as a dict.
-
     ### Parameters:
     post_id = The ID of the post to load comments for yjbttz.
     """
-    
     post_url = f"https://api.reddit.com/{post_id}"
     post_comments_response = get_api_response(post_url)
     return post_comments_response[1]["data"]["children"]

@@ -1,11 +1,13 @@
-import src.terminal as terminal
+from .src import terminal
 
-def job(subreddit:str="soccer"):
+def job(subreddit:str = "soccer"):
     terminal.print_subreddit_posts(subreddit)
 
-subreddit = input("Enter the subreddit you want to visit: r/")
-
-if subreddit:
-    job(subreddit)
+if terminal.global_variables.default_subreddit:
+    job(terminal.global_variables.default_subreddit)
 else:
-    print("No subreddit entered.")
+    subreddit = input("Enter the subreddit you want to visit: r/")
+    if subreddit:
+        job(subreddit)
+    else:
+        print("No subreddit entered.")

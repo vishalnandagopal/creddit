@@ -1,5 +1,7 @@
 from os import getenv, listdir
+
 from dotenv import load_dotenv
+
 
 class GlobalVariables:
     def __init__(self):

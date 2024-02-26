@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "reddit-cli"
+version = "1.0.0"
+description = "An unofficial cli client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all)."
+authors = ["Vishal N <dev@vishalnandagopal.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.31.0"
+colorama = "^0.4.6"
+python-dotenv = "^1.0.1"
+aiohttp = "^3.9.3"
+aiodns = "^3.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

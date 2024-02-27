@@ -11,8 +11,6 @@ python = "^3.12"
 requests = "^2.31.0"
 colorama = "^0.4.6"
 python-dotenv = "^1.0.1"
-aiohttp = "^3.9.3"
-aiodns = "^3.1.1"
 
 
 [build-system]

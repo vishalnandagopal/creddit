@@ -1,6 +1,5 @@
 from src.terminal import env, exit_terminal, print_subreddit_posts
 
-
 if env.default_subreddit:
     subreddit = env.default_subreddit
 else:

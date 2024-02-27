@@ -1,6 +1,7 @@
 from functools import lru_cache
 
-import requests
+from requests import get as r_get
+from requests.exceptions import ConnectionError
 
 
 @lru_cache(maxsize=None)
@@ -21,13 +22,12 @@ def get_api_response(url: str) -> dict:
         # "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/130.0"
     }
     try:
-        api_response = requests.get(url=url, headers=headers)
+        api_response = r_get(url=url, headers=headers)
+        if api_response.status_code != 200:
+            raise RuntimeError(f"Error with API - \n{api_response}")
         return api_response.json()
-    except requests.exceptions.ConnectionError:
-        print("You seem to be offline. Try connecting to a network.")
-        import sys
-
-        sys.exit()
+    except ConnectionError:
+        raise ConnectionError("You seem to be offline. Try connecting to a network.")
 
 
 def get_posts_in_a_subreddit(
@@ -56,7 +56,7 @@ def get_posts_in_a_subreddit(
     return subreddit_response["data"]["children"]
 
 
-def get_post_dict(post_id):
+def get_post_dict(post_id) -> dict:
     """
     Constructs the api_url to load the comments of a post, and loads the api_response and returns it as a tuple, with the first element being the post text, and the second element being a dict of the comments.
     Parameters:
@@ -96,9 +96,9 @@ def get_comments_dict(post_id: str) -> dict[int, dict]:
     return post_comments_response[1]["data"]["children"]
 
 
-def get_link_in_post(post_id: str) -> str | None:
+def get_link_in_post(post_id: str) -> str:
     _ = get_post_dict(post_id)[0]["data"]["children"][0]["data"]
     if _["is_video"]:
-        return _["media"]["reddit_media"]["fallback_url"]
+        return _["media"]["reddit_video"]["fallback_url"]
     else:
         return _["url"]

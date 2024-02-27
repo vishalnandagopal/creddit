@@ -1,9 +1,9 @@
-# reddit-terminal
+# reddit-cli
 
-An unofficial terminal client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all).
+An unofficial cli client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all).
 
 ### Features:
-- Terminal only, hence distraction free. Can browse a few posts and continue with your day. No flashy gifs, awards, ads or posts.
+- Distraction free. Can browse a few posts and continue with your day. No flashy gifs, awards, ads or posts.
 
 - Browse a subreddit by entering just the name.
 
@@ -15,4 +15,10 @@ Feel free to send a PR with any additional features, or make an issue if you hav
 
 This source code is licensed under the MIT license found in the LICENSE file in the root directory of this source tree.
 
+
+### To add
+
+More guidance on MPV, and alternatives if it isn't installed
+
 (Copyright (c) 2024 Vishal N)
+

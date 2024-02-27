@@ -15,6 +15,15 @@ Feel free to send a PR with any additional features, or make an issue if you hav
 
 This source code is licensed under the MIT license found in the LICENSE file in the root directory of this source tree.
 
+### How to use?
+
+Just install the dependencies using `pip install -r requirements.txt`. It should work in your main environment since the dependencies are already common.
+
+Then run
+
+```sh
+python app.py
+```
 
 ### To add
 

@@ -1,5 +1,6 @@
 from html import unescape
 from random import random
+from os import name as os_name
 from subprocess import run as run_command, Popen as background_run_command
 from sys import stdout
 from textwrap import TextWrapper
@@ -242,3 +243,23 @@ def open_post_link(post_id: str) -> None:
             web_open(link)
     else:
         web_open(link)
+
+
+def cls():
+    # This somehow clears the screen. https://stackoverflow.com/a/50560686
+    print("\033[H\033[J", end="")
+
+
+def run() -> None:
+
+    # Clear screen
+    cls()
+
+    if env.default_subreddit:
+        subreddit = env.default_subreddit
+    else:
+        subreddit = input("Enter the subreddit you want to visit: r/")
+        if not subreddit:
+            print("No subreddit entered.")
+            exit_terminal(error=None)
+    print_subreddit_posts(subreddit)

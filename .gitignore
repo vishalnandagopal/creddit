@@ -4,6 +4,7 @@
 *.env
 **testing.py
 *.bat
+*.Dockerfile
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -96,7 +96,7 @@ def exit_terminal(error: Exception | None) -> None:
     exit()
 
 
-def take_input_after_sub_print(text: str = "") -> str:
+def take_input_after_sub_print(text: str) -> str:
     """
     After a subreddit's post has been printed, the user's input is taken. He can give any of the 4 as input
     1. Empty input (by just entering) - Will reach more posts
@@ -120,8 +120,8 @@ def take_input_after_sub_print(text: str = "") -> str:
             raise ValueError(
                 "Please enter the name of the subreddit as r/subreddit_name"
             )
-        if not (
-            (
+        if (
+            not (
                 user_choice.casefold().endswith("o")
                 or user_choice.casefold().startswith("r/")
             )
@@ -337,7 +337,7 @@ def run() -> None:
     global config, ignored_users, no_of_posts_to_print, ignore_all_mod_posts, default_subreddit
 
     # Clear screen
-    # cls()
+    cls()
 
     if not check_config_existence():
         introduce()

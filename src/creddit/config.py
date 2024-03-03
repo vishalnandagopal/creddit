@@ -65,7 +65,7 @@ def check_config_existence() -> bool:
             config = json_load(f)
         except JSONDecodeError:
             return False
-        if not config or default_config.keys <= config.keys():
+        if not (config or (default_config.keys() < config.keys())):
             return False
 
     return True

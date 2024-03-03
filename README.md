@@ -1,4 +1,4 @@
-# reddit-cli
+# creddit - A CLI client for Reddit
 
 An unofficial cli client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all).
 
@@ -17,15 +17,19 @@ This source code is licensed under the MIT license found in the LICENSE file in 
 
 ### How to use?
 
-Just install the dependencies using `pip install -r requirements.txt`. It should work in your main environment since the dependencies are already common.
-
-Then run
+Install the package using pip
 
 ```sh
-python app.py
+pip install creddit
 ```
 
-### To add
+It will add `creddit` to your path. This should allow you to use it from any folder.
+
+```sh
+creddit
+```
+
+### Features o add
 
 More guidance on MPV, and alternatives if it isn't installed
 

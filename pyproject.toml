@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "reddit-cli"
+name = "creddit"
 version = "1.0.0"
 description = "An unofficial cli client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all)."
 authors = ["Vishal N <dev@vishalnandagopal.com>"]
@@ -12,17 +12,21 @@ requests = "^2.31.0"
 colorama = "^0.4.6"
 python-dotenv = "^1.0.1"
 
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+ruff = "^0.2.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [project.urls]
-Homepage = "https://github.com/vishalnandagopal/reddit-cli"
-Issues = "https://github.com/vishalnandagopal/reddit-cli/issues"
-
+Homepage = "https://github.com/vishalnandagopal/creddit"
+Repository = "https://github.com/vishalnandagopal/creddit"
+Issues = "https://github.com/vishalnandagopal/creddit/issues"
 
 [project.scripts]
-reddit-cli = "reddit_cli.run:run"
+creddit = "creddit.terminal:run"
 
 [tool.poetry.scripts]
-reddit-cli = "reddit_cli.run:run"
+creddit = "creddit.terminal:run"

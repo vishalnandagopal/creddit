@@ -1,3 +1,7 @@
+"""
+Manage API connections with and responses from Reddit
+"""
+
 from functools import lru_cache
 
 from requests import get as r_get
@@ -31,7 +35,7 @@ def get_api_response(url: str) -> dict:
 
 
 def get_posts_in_a_subreddit(
-    subreddit: str = "soccer", limit: int = 10, after_post: str | None = None
+    subreddit: str, limit: int = 10, after_post: str | None = None
 ) -> list[dict]:
     """
     Constructs the api_url to load the subreddit, and loads the api_response and returns it as a dict.
@@ -59,8 +63,12 @@ def get_posts_in_a_subreddit(
 def get_post_dict(post_id) -> dict:
     """
     Constructs the api_url to load the comments of a post, and loads the api_response and returns it as a tuple, with the first element being the post text, and the second element being a dict of the comments.
+
     Parameters:
         post_id (str):The ID of the post to load comments for. Eg: yjbttz.
+
+    Returns:
+        dict: The JSON response of the API, parsed as a dict
     """
 
     # LRU caching this function doesn't really help, since it only calls the API and returns it. The API function is already cached using the same lru_cache decorator.
@@ -87,8 +95,10 @@ def get_post_text(post_id: str) -> str:
 def get_comments_dict(post_id: str) -> dict[int, dict]:
     """
     Fetches the dict for the post and returns only a tuple of the text in the post (if any), and the a dict of the comments. the api_url to load the comments of a post, and loads the api_response and returns it as a tuple, with the first element being the post text, and the second element being a dict of the comments.
+
     Parameters:
         post_id (str):The ID of the post to load comments for. Eg: yjbttz.
+
     Returns:
         dict: The comments dict. Key value pair of int and each comment's dict
     """
@@ -97,6 +107,15 @@ def get_comments_dict(post_id: str) -> dict[int, dict]:
 
 
 def get_link_in_post(post_id: str) -> str:
+    """
+    Fetches the link in the post. If it is a reddit video, it sends the fallback URL so that it links directly to the video. Reddit redirects video links to the post page, which is unecessary
+
+    Parameters:
+        post_id (str): The ID of the post to fetch the posted link
+
+    Returns:
+        str: The link
+    """
     _ = get_post_dict(post_id)[0]["data"]["children"][0]["data"]
     if _["is_video"]:
         return _["media"]["reddit_video"]["fallback_url"]

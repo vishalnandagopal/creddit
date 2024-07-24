@@ -17,6 +17,8 @@ This source code is licensed under the MIT license found in the LICENSE file in 
 
 ### How to use?
 
+**NOTE: PIP INSTALLATION NOT READY YET**
+
 Install the package using pip
 
 ```sh

@@ -6,13 +6,14 @@ from html import unescape
 from subprocess import Popen as background_run_command
 from subprocess import run as run_command
 from textwrap import TextWrapper
+from typing import Any, Dict
 from urllib.parse import urlparse
 from webbrowser import open as web_open
 
 from colorama import Fore
 
-from creddit.config import Config, check_config_existence, create_config, read_config
-from creddit.reddit import get_link_in_post, get_post_dict, get_posts_in_a_subreddit
+from .config import Config, check_config_existence, create_config, read_config
+from .reddit import get_link_in_post, get_post_dict, get_posts_in_a_subreddit
 
 colors_to_use_in_terminal: tuple[str, ...] = (
     Fore.RED,
@@ -53,7 +54,7 @@ def introduce() -> None:
     if input(
         f"Would you like set the config (default subreddits, ignored users, etc) [Y/n] [{Fore.GREEN}Y{Fore.RESET}]"
     ).casefold() in {"", "y"}:
-        c = dict()
+        c: Dict[str, Any] = dict()
 
         # No of posts of print
         c["no_of_posts_to_print"] = int(
@@ -81,7 +82,6 @@ def introduce() -> None:
 
         create_config(c)
     else:
-
         create_config()
 
 
@@ -111,27 +111,23 @@ def take_input_after_sub_print(text: str) -> str:
         str: The input given
     """
     try:
-        user_choice = input(text)
+        user_choice = input(text).casefold()
         if not user_choice:
             return ""
-        if (user_choice.casefold().endswith("o")) and not user_choice[:-1].isnumeric():
+        if (user_choice.endswith("o")) and not user_choice[:-1].isnumeric():
             raise ValueError("Enter a valid number before the o")
-        if (user_choice.casefold().startswith("r/")) and (not user_choice.isalpha()):
+        if (user_choice.startswith("r/")) and (not user_choice.isalpha()):
             raise ValueError(
                 "Please enter the name of the subreddit as r/subreddit_name"
             )
         if (
-            not (
-                user_choice.casefold().endswith("o")
-                or user_choice.casefold().startswith("r/")
-            )
-            and user_choice.isnumeric()
+            not (user_choice.endswith("o") or user_choice.startswith("r/"))
+            and not user_choice.isnumeric()
         ):
             raise ValueError(
                 'Please enter a valid number to read the comments, "number0" to open the link, or r/subreddit_name to read posts from a different sub'
             )
-
-        return user_choice.casefold()
+        return user_choice
     except ValueError as e:
         print(e)
         return take_input_after_sub_print(text)
@@ -168,10 +164,15 @@ def handle_user_choice_after_a_post(
 
             num_choice = int(user_choice)
             if num_choice > len(printed_posts) or num_choice < 1:
-                raise ValueError(f"Number must be >= 1 and <= {len(printed_posts)}")
+                print(
+                    f"{Fore.RED}Number must be >= 1 and <= {len(printed_posts)}{Fore.RESET}"
+                )
+                return handle_user_choice_after_a_post(
+                    printed_posts, titles, subreddit, start_count
+                )
 
         # Colored post title
-        post_title = f"{colors_to_use_in_terminal[(num_choice-1)%num_of_colors]}{titles[num_choice - 1]}{Fore.RESET}"
+        post_title = f"{colors_to_use_in_terminal[(num_choice - 1) % num_of_colors]}{titles[num_choice - 1]}{Fore.RESET}"
         print(post_title)
 
         print_post_comments(printed_posts[num_choice - 1])
@@ -233,7 +234,7 @@ def print_post_body(specific_entry: dict[str, dict], start_count: int) -> None:
 
     print(
         colors_to_use_in_terminal[start_count % num_of_colors]
-        + f'{start_count+1}. {unescape(specific_entry["data"]["title"])}'
+        + f"{start_count + 1}. {unescape(specific_entry['data']['title'])}"
     )
     try:
         if (
@@ -241,14 +242,14 @@ def print_post_body(specific_entry: dict[str, dict], start_count: int) -> None:
             == "official source"
         ):
             post_url_source = (
-                f'    URL - {specific_entry["data"]["url"]}\n    Official Source'
+                f"    URL - {specific_entry['data']['url']}\n    Official Source"
             )
         else:
-            post_url_source = f'    URL - {specific_entry["data"]["url"]}'
+            post_url_source = f"    URL - {specific_entry['data']['url']}"
     except (KeyError, IndexError):
-        post_url_source = f'    URL - {specific_entry["data"]["url"]}'
+        post_url_source = f"    URL - {specific_entry['data']['url']}"
     print(
-        post_url_source + Fore.RESET,
+        f"{post_url_source}{Fore.RESET}",
         end=ending_separator,
     )
 
@@ -334,7 +335,12 @@ def run() -> None:
     """
     Callable function to be used while running from the terminal
     """
-    global config, ignored_users, no_of_posts_to_print, ignore_all_mod_posts, default_subreddit
+    global \
+        config, \
+        ignored_users, \
+        no_of_posts_to_print, \
+        ignore_all_mod_posts, \
+        default_subreddit
 
     # Clear screen
     cls()

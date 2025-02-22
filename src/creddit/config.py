@@ -9,12 +9,13 @@ YAML - Built in and ugly
 
 """
 
-from json import JSONDecodeError, dump as json_dump
+from json import JSONDecodeError
+from json import dump as json_dump
 from json import load as json_load
 from os import getenv
 from pathlib import Path
 from sys import platform
-from typing import NotRequired, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
 
 class Config(TypedDict):
@@ -30,9 +31,6 @@ default_config: Config = {
     "ignore_all_mod_posts": True,
 }
 
-config_path: Path
-"""The path of the config"""
-
 config_folder: Path
 
 if platform == "win32":
@@ -44,11 +42,12 @@ elif platform == "linux":
 else:
     config_folder = Path("./config/")
 
-config_folder /= "creddit"
+config_folder = config_folder / "creddit"
 config_folder.mkdir(parents=True, exist_ok=True)
 
-# It's actually a cursed thing that you can divide paths. Just found out.
+# It's actually a cursed thing that you can divide paths.
 config_path: Path = config_folder / "config.json"
+"""The path of the config"""
 
 
 def check_config_existence() -> bool:
@@ -87,7 +86,6 @@ def read_config(config_path: Path = config_path) -> Config:
 
 
 def create_config(c: dict | Config = default_config) -> bool:
-
     required_keys = default_config.keys()
 
     if required_keys <= c.keys():
@@ -101,6 +99,12 @@ def create_config(c: dict | Config = default_config) -> bool:
 
 def edit_config(new_config: dict) -> bool:
     c = read_config()
+    key: Literal[
+        "ignored_users",
+        "no_of_posts_to_print",
+        "ignore_all_mod_posts",
+        "default_subreddit",
+    ]
     for key in new_config:
         c[key] = new_config[key]
     with open(config_path, "w") as f:

@@ -1,6 +1,6 @@
 [project]
 name = "creddit"
-version = "0.0.2"
+version = "0.0.3"
 description = "An unofficial cli client for Reddit, aimed at people who regularly browse specific subreddits or topics instead of reading the homepage (r/all)."
 authors = [
     {name = "Vishal Nandagopal", email="dev@vishalnandagopal.com"}

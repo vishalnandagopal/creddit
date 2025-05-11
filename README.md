@@ -18,18 +18,13 @@ This source code is licensed under the MIT license found in the LICENSE file in 
 
 ### How to use?
 
-Clone the repo and install the thing as a package
+Install the [package](https://pypi.org/project/creddit/) from PyPi.
 
 ```sh
-git clone --depth 1 https://github.com/vishalnandagopal/creddit/ creddit
-cd creddit
-pip install uv
-uv sync
-uv build
-pip install ./dist/creddit-1.0.0-py3-none-any.whl
+pip install creddit
 ```
 
-And to finally run it,
+To run it,
 
 ```sh
 python -m creddit
@@ -37,7 +32,6 @@ python -m creddit
 
 ### Features to add
 
--   Publish to pip
 -   More guidance on MPV, and alternatives if it isn't installed
 
 (Copyright (c) 2025 Vishal N)
